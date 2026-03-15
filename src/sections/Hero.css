@@ -1,0 +1,204 @@
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 80px 4rem 4rem 4rem;
+  overflow: hidden;
+}
+
+.hero-video-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 16, 0.82);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.system-alert {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  padding: 8px 18px;
+  margin-bottom: 2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.alert-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+
+.hero-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.hero-text { flex: 1; }
+
+.hero-name {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+
+.hero-name span {
+  color: var(--accent);
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+}
+
+.hero-title-line {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem;
+  color: var(--muted);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: #94a3b8;
+  max-width: 500px;
+  margin-bottom: 2.5rem;
+  line-height: 1.9;
+  font-weight: 300;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.hero-photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.hero-photo-frame {
+  position: relative;
+  width: 270px;
+  height: 320px;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: grayscale(10%) contrast(1.1);
+}
+
+.photo-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  z-index: 2;
+}
+.photo-corner.tl { top: 0; left: 0; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.photo-corner.tr { top: 0; right: 0; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+.photo-corner.bl { bottom: 0; left: 0; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); }
+.photo-corner.br { bottom: 0; right: 0; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); }
+
+.photo-scan {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(transparent, var(--accent), transparent);
+  animation: scan 3s linear infinite;
+  z-index: 3;
+  opacity: 0.6;
+}
+
+@keyframes scan {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+.photo-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  padding: 5px 12px;
+  background: rgba(0, 212, 255, 0.05);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .hero-section { padding: 80px 1.5rem 4rem; }
+  .hero-main { flex-direction: column-reverse; align-items: flex-start; gap: 2rem; }
+  .hero-photo-frame { width: 200px; height: 240px; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+}
