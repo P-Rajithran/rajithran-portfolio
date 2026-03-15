@@ -46,7 +46,7 @@ const About = () => {
   { key: 'LOCATION', val: 'Chennai, Tamil Nadu', type: '' },
   { key: 'PHONE', val: '+91 8248683611', type: '' },
   { key: 'STATUS', val: 'Available for Hire', type: 'highlight' },
-  { key: 'MISSION', val: 'MNC by Mar 2027', type: 'gold' },
+ 
           ].map((item) => (
             <div className="status-row" key={item.key}>
               <span className="status-key">{item.key}</span>
