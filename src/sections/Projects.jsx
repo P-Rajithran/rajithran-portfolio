@@ -18,7 +18,7 @@ const projects = [
     desc: 'Solo Leveling-inspired animated developer portfolio built with React and Framer Motion. Features video background, smooth animations, and professional sections.',
     tech: ['React', 'Framer Motion', 'Vite', 'CSS3'],
     live: '#',
-    github: 'https://github.com/P-Rajithran',
+    github: 'https://github.com/P-Rajithran/rajithran-portfolio',
   },
   {
     num: '003',
