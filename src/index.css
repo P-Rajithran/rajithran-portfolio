@@ -211,3 +211,11 @@ h2.section-title span {
     box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
   }
 }
+
+@media (hover: none) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+  * { cursor: auto !important; }
+}

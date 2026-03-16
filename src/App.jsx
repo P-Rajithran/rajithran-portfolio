@@ -22,59 +22,57 @@ const App = () => {
     }
     window.addEventListener('scroll', handleScroll)
 
-    // Custom cursor (desktop only)
-    const dot = dotRef.current
-    const ring = ringRef.current
-    let mouseX = 0, mouseY = 0
-    let ringX = 0, ringY = 0
+    const isTouchDevice = window.matchMedia('(hover: none)').matches
 
-    const moveCursor = (e) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-      dot.style.left = mouseX + 'px'
-      dot.style.top = mouseY + 'px'
-    }
+    if (!isTouchDevice) {
+      // Custom cursor — desktop only
+      const dot = dotRef.current
+      const ring = ringRef.current
+      let mouseX = 0, mouseY = 0
+      let ringX = 0, ringY = 0
 
-    const animateRing = () => {
-      ringX += (mouseX - ringX) * 0.12
-      ringY += (mouseY - ringY) * 0.12
-      ring.style.left = ringX + 'px'
-      ring.style.top = ringY + 'px'
-      requestAnimationFrame(animateRing)
-    }
-    animateRing()
+      const moveCursor = (e) => {
+        mouseX = e.clientX
+        mouseY = e.clientY
+        dot.style.left = mouseX + 'px'
+        dot.style.top = mouseY + 'px'
+      }
 
-    const onMouseDown = () => {
-      dot.classList.add('clicking')
-      ring.classList.add('clicking')
-    }
-    const onMouseUp = () => {
-      dot.classList.remove('clicking')
-      ring.classList.remove('clicking')
-    }
+      const animateRing = () => {
+        ringX += (mouseX - ringX) * 0.12
+        ringY += (mouseY - ringY) * 0.12
+        ring.style.left = ringX + 'px'
+        ring.style.top = ringY + 'px'
+        requestAnimationFrame(animateRing)
+      }
+      animateRing()
 
-    const onMouseEnterLink = () => {
-      dot.classList.add('hovering')
-      ring.classList.add('hovering')
-    }
-    const onMouseLeaveLink = () => {
-      dot.classList.remove('hovering')
-      ring.classList.remove('hovering')
-    }
+      const onMouseDown = () => {
+        dot.classList.add('clicking')
+        ring.classList.add('clicking')
+      }
+      const onMouseUp = () => {
+        dot.classList.remove('clicking')
+        ring.classList.remove('clicking')
+      }
 
-    document.addEventListener('mousemove', moveCursor)
-    document.addEventListener('mousedown', onMouseDown)
-    document.addEventListener('mouseup', onMouseUp)
+      document.addEventListener('mousemove', moveCursor)
+      document.addEventListener('mousedown', onMouseDown)
+      document.addEventListener('mouseup', onMouseUp)
 
-    const addLinkListeners = () => {
       document.querySelectorAll('a, button').forEach(el => {
-        el.addEventListener('mouseenter', onMouseEnterLink)
-        el.addEventListener('mouseleave', onMouseLeaveLink)
+        el.addEventListener('mouseenter', () => {
+          dot.classList.add('hovering')
+          ring.classList.add('hovering')
+        })
+        el.addEventListener('mouseleave', () => {
+          dot.classList.remove('hovering')
+          ring.classList.remove('hovering')
+        })
       })
     }
-    addLinkListeners()
 
-    // Mobile touch ripple
+    // Mobile touch ripple only
     const handleTouch = (e) => {
       const touch = e.touches[0]
       const ripple = document.createElement('div')
@@ -86,23 +84,19 @@ const App = () => {
     }
     document.addEventListener('touchstart', handleTouch)
 
-    // Sound on buttons only - use event delegation
-const sound = new Audio('/sound.mp3')
-document.addEventListener('click', (e) => {
-  const target = e.target.closest('a, button')
-  if (target) {
-    sound.currentTime = 0
-    sound.volume = 0.3
-    sound.play().catch(() => {})
-  }
-})
-  
+    // Sound on buttons only
+    const sound = new Audio('/sound.mp3')
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('a, button')
+      if (target) {
+        sound.currentTime = 0
+        sound.volume = 0.3
+        sound.play().catch(() => {})
+      }
+    })
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      document.removeEventListener('mousemove', moveCursor)
-      document.removeEventListener('mousedown', onMouseDown)
-      document.removeEventListener('mouseup', onMouseUp)
       document.removeEventListener('touchstart', handleTouch)
     }
   }, [])
