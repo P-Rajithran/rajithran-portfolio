@@ -104,7 +104,7 @@ const Hero = () => {
             <div className="stat-label">APIs Built</div>
           </div>
           <div className="stat-item">
-            <div className="stat-num">2+</div>
+            <div className="stat-num">5+</div>
             <div className="stat-label">Marketing Clients</div>
           </div>
         </motion.div>
