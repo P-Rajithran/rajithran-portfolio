@@ -6,9 +6,16 @@ const Hero = () => {
   return (
     <section className="hero-section" id="hero">
       
-      {/* Video Background */}
+      {/* Video Background with Poster & Accessibility */}
       <div className="hero-video-container">
-        <video autoPlay loop muted playsInline>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/videos/hero-poster.webp"
+          preload="metadata"
+        >
           <source src="/videos/hero-bg.webm" type="video/webm" />
         </video>
         <div className="hero-overlay"></div>

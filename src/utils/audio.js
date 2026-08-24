@@ -1,12 +1,41 @@
+const AUDIO_STORAGE_KEY = 'portfolio_audio_muted'
+
 // Singleton audio instance to prevent memory leaks and overlapping audio objects
 let audioInstance = null
 
 /**
- * Plays an interaction sound effect on button and link clicks.
- * @param {string} [src='/sound.mp3'] - Path to the audio file.
+ * Checks whether global audio effects are currently muted in localStorage.
+ * @returns {boolean} True if muted, false otherwise.
+ */
+export const isAudioMuted = () => {
+  try {
+    return localStorage.getItem(AUDIO_STORAGE_KEY) === 'true'
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Updates the global audio mute state and synchronizes across listeners.
+ * @param {boolean} muted - The new mute state.
+ */
+export const setAudioMuted = (muted) => {
+  try {
+    localStorage.setItem(AUDIO_STORAGE_KEY, String(muted))
+    window.dispatchEvent(new CustomEvent('audiomutechange', { detail: { muted } }))
+  } catch {
+    // Graceful fallback if localStorage is disabled
+  }
+}
+
+/**
+ * Plays an interaction sound effect if audio is not globally muted.
+ * @param {string} [src='/sound.mp3'] - Path to audio file.
  * @param {number} [volume=0.3] - Desired playback volume (0.0 to 1.0).
  */
 export const playInteractionSound = (src = '/sound.mp3', volume = 0.3) => {
+  if (isAudioMuted()) return
+
   try {
     if (!audioInstance) {
       audioInstance = new Audio(src)
@@ -14,10 +43,10 @@ export const playInteractionSound = (src = '/sound.mp3', volume = 0.3) => {
     audioInstance.currentTime = 0
     audioInstance.volume = volume
     audioInstance.play().catch(() => {
-      // Autoplay / interaction policy catch
+      // Gracefully ignore autoplay policy blocks
     })
   } catch {
-    // Graceful fallback if Audio API is unavailable
+    // Fail silently if audio is unavailable
   }
 }
 

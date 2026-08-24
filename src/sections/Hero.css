@@ -19,6 +19,15 @@
   object-fit: cover;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .hero-video-container video {
+    display: none;
+  }
+  .hero-video-container {
+    background: url('/videos/hero-poster.webp') center/cover no-repeat;
+  }
+}
+
 .hero-overlay {
   position: absolute;
   inset: 0;
