@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
+import useScrollReveal from '../hooks/useScrollReveal'
 import './Contact.css'
 
 const contactLinks = [
@@ -23,16 +24,7 @@ const contactLinks = [
 ]
 
 const Contact = () => {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) ref.current?.classList.add('visible') },
-      { threshold: 0.1 }
-    )
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [])
+  const ref = useScrollReveal(0.1)
 
   return (
     <section className="contact-section" id="contact">

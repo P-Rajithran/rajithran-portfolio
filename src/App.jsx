@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Hero from './sections/Hero'
@@ -7,21 +8,21 @@ import Skills from './sections/Skills'
 import Experience from './sections/Experience'
 import Projects from './sections/Projects'
 import Contact from './sections/Contact'
+import { playInteractionSound } from './utils/audio'
 import './index.css'
 
 const App = () => {
-  const [scroll, setScroll] = useState(0)
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  })
+
   const dotRef = useRef(null)
   const ringRef = useRef(null)
 
   useEffect(() => {
-    // Scroll progress
-    const handleScroll = () => {
-      const total = document.documentElement.scrollHeight - window.innerHeight
-      setScroll((window.scrollY / total) * 100)
-    }
-    window.addEventListener('scroll', handleScroll)
-
     const isTouchDevice = window.matchMedia('(hover: none)').matches
 
     if (!isTouchDevice) {
@@ -84,26 +85,30 @@ const App = () => {
     }
     document.addEventListener('touchstart', handleTouch)
 
-    // Sound on buttons only
-    const sound = new Audio('/sound.mp3')
-    document.addEventListener('click', (e) => {
-      const target = e.target.closest('a, button')
+    // Sound on buttons only using mute-aware utility
+    const handleButtonClick = (e) => {
+      const target = e.target.closest('a, button, .sound-btn')
       if (target) {
-        sound.currentTime = 0
-        sound.volume = 0.3
-        sound.play().catch(() => {})
+        playInteractionSound('/sound.mp3', 0.3)
       }
-    })
+    }
+    document.addEventListener('click', handleButtonClick)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
       document.removeEventListener('touchstart', handleTouch)
+      document.removeEventListener('click', handleButtonClick)
     }
   }, [])
 
   return (
     <div>
-      <div className="scroll-progress" style={{ width: `${scroll}%` }}></div>
+      <motion.div
+        className="scroll-progress"
+        style={{
+          scaleX,
+          transformOrigin: '0%'
+        }}
+      />
       <div className="cursor-dot" ref={dotRef}></div>
       <div className="cursor-ring" ref={ringRef}></div>
       <Navbar />

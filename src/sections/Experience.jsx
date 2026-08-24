@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
+import useScrollReveal from '../hooks/useScrollReveal'
 import './Experience.css'
 
 const experience = [
@@ -25,16 +26,7 @@ const experience = [
 ]
 
 const Experience = () => {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) ref.current?.classList.add('visible') },
-      { threshold: 0.1 }
-    )
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [])
+  const ref = useScrollReveal(0.1)
 
   return (
     <section className="exp-section" id="experience">
