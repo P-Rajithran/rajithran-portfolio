@@ -23,12 +23,6 @@
   text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
 .nav-links {
   display: flex;
   gap: 2rem;

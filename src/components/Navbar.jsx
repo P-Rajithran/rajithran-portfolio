@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import AudioToggle from './AudioToggle'
 import './Navbar.css'
 
 const Navbar = () => {
@@ -9,11 +8,8 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-logo">RAJITHRAN</div>
-      <div className="nav-actions">
-        <AudioToggle />
-        <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? '✖' : '☰'}
-        </div>
+      <div className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? '✖' : '☰'}
       </div>
       <ul className={`nav-links ${menuOpen ? 'active' : ''}`}>
         <li><a href="#hero" onClick={handleLinkClick}>Home</a></li>

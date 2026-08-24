@@ -41,17 +41,24 @@
 }
 
 .contact-link-icon {
-  width: 36px;
-  height: 36px;
-  background: rgba(0, 212, 255, 0.05);
-  border: 1px solid rgba(0, 212, 255, 0.15);
+  width: 38px;
+  height: 38px;
+  background: rgba(0, 212, 255, 0.06);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Orbitron', monospace;
-  font-size: 0.6rem;
+  font-size: 1.05rem;
   color: var(--accent);
   flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.contact-link-item:hover .contact-link-icon {
+  background: rgba(0, 212, 255, 0.15);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  transform: scale(1.05);
 }
 
 .contact-link-label {

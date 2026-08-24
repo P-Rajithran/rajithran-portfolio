@@ -1,22 +1,24 @@
 import React from 'react'
+import { SiGmail } from 'react-icons/si'
+import { FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import useScrollReveal from '../hooks/useScrollReveal'
 import './Contact.css'
 
 const contactLinks = [
   {
-    icon: 'GM',
+    icon: <SiGmail />,
     label: 'Gmail',
     sub: 'rajithran83@gmail.com',
     href: 'https://mail.google.com/mail/?view=cm&fs=1&to=rajithran83@gmail.com',
   },
   {
-    icon: 'LN',
+    icon: <FaLinkedinIn />,
     label: 'LinkedIn',
     sub: 'linkedin.com/in/rajithran83',
     href: 'https://www.linkedin.com/in/rajithran83/',
   },
   {
-    icon: 'GH',
+    icon: <FaGithub />,
     label: 'GitHub',
     sub: 'github.com/P-Rajithran',
     href: 'https://github.com/P-Rajithran',
